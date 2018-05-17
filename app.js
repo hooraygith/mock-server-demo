@@ -35,28 +35,48 @@ router
             "result": true
         }
     })
-    .post('/upload', (ctx, next) => {
+    .post('/upload', async (ctx, next) => {
 
 
+        const files = ctx.request.body.files
 
-        const file = ctx.request.body.files.key
 
-        console.log('received： %s -> %s', file.name);
+        console.log('received： %s -> %s', Object.keys(files));
+
+
+        await sleep(2000)
+
+
 
         ctx.body = {
             "msg": "",
             "errormsg": "",
-            "resultcode": 200,
-            "result": true
+            "resultcode": 2002,
+            "result": true,
+            data: {
+                url: 'https://img.hrloo.com/uc/avatar/sys/1_avatar_middle.png'
+            }
         }
 
-        next()
+        await next()
+
+
+        function sleep(time) {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve()
+                }, time)
+            })
+        }
+
 
     })
 
 
 // 跨域
-app.use(cors())
+app.use(cors({
+    credentials: true
+}))
 
 app.use(koaBody({multipart: true}))
 
