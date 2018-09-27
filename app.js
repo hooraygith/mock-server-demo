@@ -35,6 +35,14 @@ router
             "result": true
         }
     })
+    .get('/testajax', (ctx, next) => {
+        ctx.body = {
+            "msg": "dd",
+            "errormsg": "wwwww!",
+            "resultcode": 200,
+            "result": true
+        }
+    })
     .post('/upload', async (ctx, next) => {
 
 
@@ -68,8 +76,6 @@ router
                 }, time)
             })
         }
-
-
     })
 
 
